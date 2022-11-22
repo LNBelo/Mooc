@@ -1547,7 +1547,7 @@ function parseEditTokens(tokenResponse) {
       // page exists
       if (pages.hasOwnProperty(pageId)) {
         var page = pages[pageId];
-        editTokens.add(page.title, page.edittoken);
+        editTokens.add(page.title, tokenResponse.query.tokens.csrftoken);
       }
     }
   }
