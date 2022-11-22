@@ -1420,7 +1420,8 @@ function doEditTokenRequest(pageTitles, sucCallback) {
   var sPageTitles = pageTitles.join('|');
   // get edit tokens
   var tokenData = {
-    'intoken': 'edit|watch'
+    'meta': 'tokens',
+    'type': '*'
   };
   $.ajax({
     type: "POST",
