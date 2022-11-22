@@ -2521,7 +2521,7 @@ function loadThread(thread, lastId) {
   thread.content = content.join('\n');
   if (signature !== null) {
     thread.signature = signature.value;
-    thread.published = thread.signature.timestamp.getTime();
+    //thread.published = thread.signature.timestamp.getTime();
   }
   return {
     'lastId': lastId,
