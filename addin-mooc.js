@@ -1696,8 +1696,8 @@ function addUnit(name, item, summary, sucCallback) {
  * @param {function} success callback
  */
 function createMooc(title, summary, sucCallback) {
-  createPage('Category:' + title, '{{#invoke:Mooc|overview|base=' + title + '}}\n<noinclude>[[category:MOOC]]</noinclude>', summary, function() {// create category with overview
-    createPage(title, '{{#invoke:Mooc|overview|base=' + title + '}}', summary, function() {// create MOOC overview page
+  createPage('Categoria:' + title, '{{#invoke:Mooc|overview|base=' + title + '}}', summary, function() {// create category with overview
+    createPage(title, '{{#invoke:Mooc|overview|base=' + title + '}}\n[[Categoria:MOOC]]', summary, function() {// create MOOC overview page
       createPage(title + '/MoocIndex', '--MoocIndex for MOOC @ ' + title, summary, sucCallback);// create MOOC index
     });
   });
