@@ -15,9 +15,9 @@
 AddinMooc_CONFIG.set('LOG_LEVEL', 0);// -1: off, 0: debug, 1: production
 AddinMooc_CONFIG.set('MW_ROOT_URL', 'https://pt.wikiversity.org/w/index.php');
 AddinMooc_CONFIG.set('MW_API_URL', 'https://pt.wikiversity.org/w/api.php');
-AddinMooc_CONFIG.set('MW_NAMESPACE_TALK', 'Talk');
-AddinMooc_CONFIG.set('MW_NAMESPACE_USER', 'User');
-AddinMooc_CONFIG.set('MW_PAGE_CONTRIBUTIONS', 'Special:Contributions');
+AddinMooc_CONFIG.set('MW_NAMESPACE_TALK', 'Discussão');
+AddinMooc_CONFIG.set('MW_NAMESPACE_USER', 'Utilizador');
+AddinMooc_CONFIG.set('MW_PAGE_CONTRIBUTIONS', 'Especial:Contribuições');
 AddinMooc_CONFIG.set('UI_THREAD_COLLAPSED_NUMCHARACTERS', 100);
 AddinMooc_CONFIG.set('UI_SECTION_COLLAPSED_HEIGHT', 40);
 AddinMooc_CONFIG.set('USER_AGENT_EMAIL', 'sebschlicht@uni-koblenz.de');
