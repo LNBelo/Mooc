@@ -1,0 +1,610 @@
+/**
+ * Esse arquivo CSS é parte do MOOC Addin (https://pt.wikiversity.org/wiki/Mooc-Module).
+ * 
+ * Ele contém as diretrizes CSS necessárias para aplicar o layout para todos os elementos relacionados ao MOOC Addin.
+ *   
+ * Todos os elementos do MOOC Addin são colocados dentro de um elemento chamado "MOOC root".
+ * Para evitar colisões de diretries em/com outras páginas:
+ * Todo CSS/jQuery-Selector contém o "MOOC root".
+ * Todos os outros elementos não conterão prefixos MOOC, uam vez que não é necessário colocá-los em contexto maior do que esse.
+ * Colisões entre elementos MOOC ainda podem ocorrer e, portanto, os seletores CSS devem ser tão fortes quanto possível, com a limitação da menor quantidade correspondente.
+ * 
+ * Uma visão geral do layout da página pode ser vista em:
+ * https://commons.wikimedia.org/wiki/File:Addin-Mooc-Css-Overview.pdf
+ * 
+ * Nota:
+ * 
+ * O estilo de alguns elementos depente do estado de aplicação, assim como da posição da barra de rolagem, e, portanto, requer o uso de JavaScript.
+ * Assim, algumas diretivas CSS não estão incluídas neste arquivo, mas são definidas via JavaScript (jQuery) dinamicamente.
+ * No futuro, isso pode/deve ser separado em:
+ *   1.) Diretrizes CSS limitadas a uma classe de estado e
+ *   2.) Cógico JavaScript que desabilita essas classes de estado.
+ */
+
+#addin-mooc .border-box {/* CSS 3 box model with padding included in element size */
+  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
+
+/*####################
+  # CONTENT
+  ####################*/
+#addin-mooc #content-wrapper {
+  float: left;
+  width: 100%;
+}
+#addin-mooc #mooc-content {
+  margin-right: 260px;
+}
+
+/*####################
+  # ITEM NAVIGATION
+  # sticky@scroll at upper screen border
+  ####################*/
+#addin-mooc #item-navigation {/* border-box */
+  padding: 1px 20px;
+  background-color: #FFF;
+  border: 1px solid #E0E0E0;
+  border-bottom: none;
+  z-index: 1001;
+}
+#addin-mooc #item-navigation a:focus,
+#addin-mooc #item-navigation a:hover {
+  text-decoration: none;
+}
+#addin-mooc #item-navigation .section-link-wrapper {/* border-box */
+  display: inline-block;
+  margin-right: 20px;
+  cursor: pointer;
+}
+#addin-mooc #item-navigation .section-link-wrapper img {
+  margin-right: 2px;
+}
+#addin-mooc #item-navigation .active {
+  padding: 0 2px;
+  background-color: #EAEAEA;
+  border-radius: 4px;
+  border: 1px solid #E0E0E0;
+}
+
+/*####################
+  # SECTIONS
+  ####################*/
+#addin-mooc .section {
+  position: relative;
+  border: 1px solid #E0E0E0;
+  overflow: hidden; /* do not move section due to content margin */
+}
+#addin-mooc .section:first-child {
+  border-top: none; /* smooth transition from section header to item navigation background */
+}
+#addin-mooc .section > .header {/* border-box */
+  position: absolute;
+  top: 0;
+  width: 100%;
+  padding: 5px 20px;
+  color: #777;
+  background: -moz-linear-gradient(top, #FFF 1%, #EAEAEA 100%);
+  background: -o-linear-gradient(top, #FFF 1%, #EAEAEA 100%);
+  background: -ms-linear-gradient(top, #FFF 1%, #EAEAEA 100%);
+  background: -webkit-linear-gradient(top, #FFF 1%, #EAEAEA 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #FFF), color-stop(100%, #EAEAEA));
+  box-shadow: 0 0 0 1px rgba(155, 155, 155, .3), 1px 0 0 0 rgba(255, 255, 255, .9) inset, 0 2px 2px rgba(0, 0, 0, .1);
+  border-bottom: 1px solid #E0E0E0;
+  cursor: pointer;
+  z-index: 1;
+}
+#addin-mooc .section > .header h2 {
+  display: inline-block;
+  margin-top: 5px !important; /* necessary to override global MediaWiki-CSS's important statement */
+}
+#addin-mooc .section > .header .icon {/* Q: can we use a background image instead? */
+  float: left;
+  margin-right: 7px;
+  padding-top: 4px;
+}
+#addin-mooc .section > .content {
+  margin: 55px 0 0 0;
+  padding: 20px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .2);
+  overflow: hidden;
+}
+
+/*####################
+  # EMPTY SECTION HINTS
+  # info box asking for content
+  ####################*/
+#addin-mooc .section .empty-section {
+  color: #705000;
+  font-size: 120%;
+}
+#addin-mooc .section .empty-section .add-content-hint {
+  min-height: 48px;
+  margin-top: 10px;
+  padding: 10px 10px 10px 70px;
+  color: #000;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/b/b0/Gnome-help-browser-modified.svg') no-repeat 10px center;
+  border: 1px solid #705000;
+  font-size: 83.33%;
+}
+#addin-mooc .section .empty-section .add-content-hint .edit-text {
+  color: #0645AD;
+  cursor: pointer;
+}
+#addin-mooc .section .empty-section .add-content-hint .edit-text:hover {
+  text-decoration: underline;
+}
+
+/*####################
+  # SECTION COLLAPSE
+  # UI to expand/effects when collapsed
+  ####################*/
+#addin-mooc .btn-expand {
+  height: 40px;
+  text-align: center;
+  cursor: pointer;
+}
+#addin-mooc .collapsed > .content {
+  overflow: hidden;
+}
+#addin-mooc .collapsed > .content:after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 40px;
+  left: 0;
+  height: 30px;
+  background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+}
+
+/*####################
+  # SECTION: ASSOCIATED UNITS
+  # units the current lesson/MOOC contains; add item UI
+  ####################*/
+/* add new unit/lesson/mooc; does also apply for lessons section and MOOC category page */
+#addin-mooc #addLesson,
+#addin-mooc #addMooc,
+#addin-mooc #addUnit {
+  cursor: pointer;
+}
+/* unit layout; does also apply for lessons section (units listed recursively) */
+#addin-mooc #units .children .unit,
+#addin-mooc #lessons .children .lesson .children .unit {/* Q: can we remove .children safely? */
+  display: block;
+  position: relative;
+  width: auto;
+  min-height: 170px;
+  margin: 30px 0 0 0;
+  padding: 10px;
+  border: 1px solid #E0E0E0;
+  cursor: pointer;
+}
+#addin-mooc #units .unit:first-child,
+#addin-mooc #lessons .children .lesson .children .unit:first-child {
+  margin-top: 0;
+}
+#addin-mooc .children .unit:after,
+#addin-mooc .children .lesson:after {/* Q: WTF is this? */
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+#addin-mooc #units .unit .video-bar,
+#addin-mooc #lessons .unit .video-bar {
+  float: left;
+  width: 300px;
+}
+/* video thumbnails; does also apply for local navigation thumbails */
+#addin-mooc #units .unit .video,
+#addin-mooc #lessons .unit .video,
+#addin-mooc #local-navigation .video {
+  width: 300px;
+  height: 170px;
+  margin-bottom: 5px;
+  text-align: center;
+  background-color: #EEE;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .2);
+  overflow: hidden;
+  z-index: 1502;
+}
+#addin-mooc #units .unit .video div,
+#addin-mooc #lessons .unit .video div,
+#addin-mooc #local-navigation .video div {
+  width: 100%;
+  height: 100%;
+  display: table;
+}
+#addin-mooc #units .unit .video div span,
+#addin-mooc #lessons .unit .video div span,
+#addin-mooc #local-navigation .video div span {
+  display: table-cell;
+  vertical-align: middle;
+}
+#addin-mooc #units .unit .video .play-btn-large,
+#addin-mooc #lessons .unit .video .play-btn-large,
+#addin-mooc #local-navigation .video .play-btn-large {
+  display: none; /* hide play button rendered with thumbnail */
+}
+#addin-mooc #units .unit .content,
+#addin-mooc #lessons .unit .content {
+  margin-left: 320px;
+}
+#addin-mooc #units .unit .content > .title,
+#addin-mooc #lessons .unit .content > .title {
+  margin: 5px 0 10px 0;
+  font-size: 1.17em;
+  font-weight: bold;
+  line-height: 1.6;
+}
+#addin-mooc #units .unit .icon-bar ul,
+#addin-mooc #lessons .unit .icon-bar ul {
+  margin: 0;
+  padding: 0;
+}
+#addin-mooc #units .unit .icon-bar li,
+#addin-mooc #lessons .unit .icon-bar li {
+  display: inline-block;
+  margin-right: 15px;
+  list-style: none; /* Q: can we move this to parental list? */
+  opacity: 0.4;
+}
+#addin-mooc #units .unit .discussion-statistic-wrapper,
+#addin-mooc #lessons .unit .discussion-statistic-wrapper {
+  position: absolute;
+  top: 10px;
+  right: 0;
+}
+#addin-mooc #units .unit .discussion-statistic-wrapper .img-arrow img,
+#addin-mooc #lessons .unit .discussion-statistic-wrapper .img-arrow img {
+  float: right;
+  padding-top: 10px;
+}
+#addin-mooc #units .unit .discussion-statistic,
+#addin-mooc #lessons .unit .discussion-statistic {
+  float: left;
+  padding: 5px;
+  background-color: #EEE;
+  border-radius: 3px;
+}
+#addin-mooc #units .unit .discussion-statistic .icon,
+#addin-mooc #lessons .unit .discussion-statistic .icon {
+  margin-bottom: 4px;
+  text-align: center;
+}
+#addin-mooc #units .unit .discussion-statistic .stat-row,
+#addin-mooc #lessons .unit .discussion-statistic .stat-row {
+  padding: 5px;
+  border-radius: 3px;
+  text-align: center;
+}
+#addin-mooc #units .unit .discussion-statistic .num,
+#addin-mooc #lessons .unit .discussion-statistic .num {
+  font-size: 120%;
+}
+#addin-mooc #units .unit .discussion-statistic .title,
+#addin-mooc #lessons .unit .discussion-statistic .title {
+  font-size: 80%;
+  line-height: 1;
+}
+#addin-mooc #units .unit .discussion-statistic .unanswered,
+#addin-mooc #lessons .unit .discussion-statistic .unanswered {
+  padding: 4px;
+  color: #E21;
+  border: 1px solid #E21;
+}
+#addin-mooc #units .unit .learning-goals ol,
+#addin-mooc #lessons .unit .learning-goals ol {
+  margin: 0;
+  padding: 0;
+  list-style-position: inside;
+  overflow: hidden;
+}
+#addin-mooc #units .unit .learning-goals li,
+#addin-mooc #lessons .unit .learning-goals li {
+  margin-bottom: 3px;
+}
+
+/*####################
+  # SECTION: DISCUSSION
+  # threads, posts, ask/reply UI
+  ####################*/
+#addin-mooc #discussion .thread ol {
+  margin-left: 25px;
+}
+#addin-mooc #discussion li {
+  list-style: none;/* Q: can we move this to parental list? */
+}
+#addin-mooc #discussion .thread .header .title {
+  display: inline-block;
+  width: 60%;
+}
+#addin-mooc #discussion .thread .header .num-replies {
+  float: right;
+  width: 6em;
+  font-size: 0.8em;
+  text-align: right;
+}
+#addin-mooc #discussion .post > .content {
+  overflow: hidden;
+}
+#addin-mooc #discussion .post > .content > .message {
+  position: relative;
+  margin: 2px 2px 5px 2px;
+  padding: 10px 10px 20px 10px;
+  background: none repeat scroll 0 0 #F4F7FB;
+  border: 1px solid #E0E0E0;
+  border-radius: 4px;
+}
+#addin-mooc #discussion .meta {
+  position: absolute;
+  right: 5px;
+  bottom: 1px;
+  color: #777;
+}
+#addin-mooc #discussion .warning {
+  color: #705000;
+}
+#addin-mooc #discussion .overlay {
+  right: 0;
+}
+#addin-mooc #discussion .overlay .background {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+#addin-mooc #discussion .overlay .content {
+  padding: 5px;
+  cursor: pointer;
+}
+#addin-mooc .ask-question {
+  margin-top: 15px;
+}
+#addin-mooc .ask-question .label {
+  display: block;
+}
+#addin-mooc .ask-question textarea,
+#addin-mooc .ask-question .title,
+#addin-mooc .ui-reply textarea {/* border-boxed */
+  width: 100%;
+  padding: 2px;
+  resize: none; /* hide resize UI for element */
+  overflow: hidden;
+}
+#addin-mooc .ask-question .btn-ask {
+  display: block;
+  width: 180px;
+  margin: 10px auto 0;
+  padding: 5px;
+  background-color: #FFF;
+  text-align: center;
+  box-shadow: 0 0 3px 2px rgba(0, 0, 0, .2);
+  cursor: pointer;
+}
+
+/*####################
+  # SECTION: LESSONS
+  # lessons the current MOOC contains
+  ####################*/
+#addin-mooc #lessons .children .lesson {/* Q: can we remove .children safely? */
+  display: block;
+  width: auto;
+  padding-top: 50px;
+}
+#addin-mooc #lessons .children .lesson:first-child {
+  padding-top: 0;
+}
+#addin-mooc #lessons .children .lesson > .title {
+  margin-top: 5px;
+  margin-bottom: 0.25em;
+  font-size: 1.5em;
+  font-weight: bold;
+  line-height: 1.3;
+  border-bottom: 1px solid #AAA;
+}
+
+/*####################
+  # NAVIGATION
+  # sticky@scroll at upper screen border
+  ####################*/
+#addin-mooc #navigation-wrapper {
+  position: absolute;
+  right: 0;
+  width: 250px;
+}
+#addin-mooc #navigation {
+  width: 250px;
+  padding: 0;
+  background: #FFF;
+  overflow: hidden; /* prevents lists's margin to move item */
+}
+#addin-mooc #navigation .header-wrapper {/* border-box */
+  position: absolute;
+  width: 100%;
+  padding-top: 25px;
+  border: 1px solid #E0E0E0;
+}
+#addin-mooc #navigation .header {
+  padding: 5px 20px 11px 20px;
+  background: -moz-linear-gradient(top, #FFF 1%, #EAEAEA 100%);
+  background: -o-linear-gradient(top, #FFF 1%, #EAEAEA 100%);
+  background: -ms-linear-gradient(top, #FFF 1%, #EAEAEA 100%);
+  background: -webkit-linear-gradient(top, #FFF 1%, #EAEAEA 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #FFF), color-stop(100%, #EAEAEA));
+}
+#addin-mooc #navigation .header img {
+  margin: -9px 5px 0 0; /* Q: can this be put into background, too? */
+}
+#addin-mooc #navigation .header > div {/* emulate h2 behaviour which we can not use in templates */
+  display: inline-block;
+  margin: 5px 0 0.25em 0;
+  padding: 0;
+  line-height: 1.3;
+  font-size: 1.5em;
+  font-family: "Linux Libertine",Georgia,Times,serif;
+  border-bottom: 1px solid #AAA;
+}
+#addin-mooc #navigation > ol {
+  margin: 81px 0 0 0;
+  padding: 10px;
+  border: 1px solid #E0E0E0;
+  border-top: none;
+  font-size: 0.85em;
+  list-style-position: inside;
+  overflow: hidden; /* prevents lists's margin to move item */
+}
+
+/*####################
+  # LOCAL NAVIGATION
+  # video thumbnails for next/previous unit and parental lesson
+  # @see{#units} for thumbnail style 
+  ####################*/
+#addin-mooc #local-navigation > .previous,
+#addin-mooc #local-navigation > .next {
+  display: inline-block;
+  width: 300px;
+  margin: 10px 5px;
+  padding: 10px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .2);
+  cursor: pointer;
+}
+
+/*####################
+  # ACTION BUTTONS
+  # in section headers
+  ####################*/
+#addin-mooc .actions {
+  float: right;
+}
+#addin-mooc .actions ul {
+  list-style: none;
+}
+#addin-mooc .actions > div {
+  display: none;
+  float: right;
+  margin-left: 15px;
+}
+#addin-mooc .actions .btn-ask-question {
+  margin-top: 12px;
+}
+#addin-mooc .actions .btn-edit {
+  margin-top: 6px;
+}
+
+/*####################
+  # MODAL BOXES
+  # hidden until activated in JS
+  ####################*/
+#addin-mooc .modal-box {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  cursor: default;
+  z-index: 1502; /* video thumbnails will overlap if value below */
+}
+#addin-mooc .modal-box .background {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #050404;
+  opacity: 0.87;
+}
+#addin-mooc .modal-box .content {/* border-box */
+  position: relative;
+  width: 80%;
+  height: 80%;
+  left: 48px;
+  right: 0;
+  top: 15%;
+  margin: 0 auto;
+  padding: 25px 20px;
+  color: #000;
+  background-color: #FFF;
+  border-radius: 8px;
+  overflow: visible;
+}
+#addin-mooc .modal-box .btn-close {
+  float: right;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  margin: -40px -40px 0 0;
+  background: #FFF url("https://upload.wikimedia.org/wikipedia/commons/7/7a/OOjs_UI_icon_clear.svg") no-repeat center;
+  box-shadow: 0 0 3px 2px rgba(0, 0, 0, .2);
+  border-radius: 20px;
+  cursor: pointer;
+  z-index: 2;
+}
+#addin-mooc .modal-box .btn-save {
+  display: block;
+  width: auto;
+  min-width: 120px;
+  margin: 15px auto 0 auto;
+  padding: 10px 10px 10px 35px;
+  color: #000;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/True.svg/20px-True.svg.png') no-repeat 12px 8px;
+  text-align: center;
+  box-shadow: 0 0 3px 2px rgba(0, 0, 0, .2);
+  cursor: pointer;
+}
+#addin-mooc .modal-box input[disabled].btn-save {
+  color: #DCDAD1;
+}
+#addin-mooc .modal-box fieldset {
+  height: auto;
+}
+#addin-mooc .modal-box label {
+  font-weight: bold;
+  line-height: 1.6;
+}
+#addin-mooc .modal-box .label-title {
+  font-size: 1.17em;
+}
+#addin-mooc .modal-box .label-summary {
+  display: inline-block;
+  margin-top: 25px;
+}
+#addin-mooc .modal-box input,
+#addin-mooc .modal-box textarea {
+  width: 100%;
+  padding: 2px 5px;
+  border-radius: 3px;
+  border: 1px solid #AEAEAE;
+}
+#addin-mooc .modal-box textarea {/* TODO: auto height */
+  height: 200px;
+}
+#addin-mooc .modal-box .help {
+  min-height: 48px;
+  margin-top: 25px;
+  padding: 10px 10px 10px 70px;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/4/44/Help-browser.svg') no-repeat 10px center;
+  border: 1px solid #705000;
+}
+
+/*####################
+  # OVERLAYS
+  # such as reply buttons (single use case at the moment)
+  # hidden until activated in JS
+  ####################*/
+#addin-mooc .overlay {
+  display: none;
+  position: absolute;
+}
+#addin-mooc .overlay > span {
+  position: relative;
+}
+#addin-mooc .overlay .content {
+  position: relative;
+  z-index: 2;
+}
+#addin-mooc .overlay .background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #668;
+  opacity: 0.5;
+  z-index: 1;
+}
