@@ -207,7 +207,6 @@
   background-color: #EEE;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, .2);
   overflow: hidden;
-  z-index: 1502;
 }
 #addin-mooc #units .unit .video div,
 #addin-mooc #lessons .unit .video div,
